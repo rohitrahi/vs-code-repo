@@ -1,0 +1,29 @@
+CREATE or REPLACE PROCEDURE populate_availability ( p_start_date date, p_end_date date) AS
+
+v_loop_date date;
+BEGIN
+
+v_loop_date := p_start_date;
+-- populate qty 0 for every room type in every hotel for the date range selected
+WHILE v_loop_date <= p_end_date
+LOOP
+    FOR cur_rooms_types_in_hotels in (SELECT DISTINCT hotel_id, room_type_id FROM rooms)  LOOP
+    INSERT INTO room_availability (AVAILABILITY_DATE, HOTEL_ID, ROOM_TYPE_ID, QTY_AVAILABLE) VALUES (v_loop_date,cur_rooms_types_in_hotels.hotel_id,cur_rooms_types_in_hotels.room_type_id,0);
+    END LOOP;
+v_loop_date := v_loop_date +1;
+END LOOP;
+COMMIT;
+
+v_loop_date := p_start_date;
+-- populate actual quantity of room type in every hotel for the date range selected
+WHILE v_loop_date <= p_end_date
+LOOP
+    FOR cur_rooms in (SELECT room_id,room_type_id, hotel_id FROM rooms)  LOOP
+    UPDATE room_availability SET qty_available=qty_available+1 WHERE availability_date=v_loop_date AND hotel_id=cur_rooms.hotel_id AND room_type_id=cur_rooms.room_type_id;
+    END LOOP;
+
+v_loop_date := v_loop_date +1;
+END LOOP;
+COMMIT;
+
+END populate_availability;

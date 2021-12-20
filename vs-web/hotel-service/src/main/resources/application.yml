@@ -1,0 +1,79 @@
+spring:
+  config:
+    activate:
+      on-profile: dev
+  application:
+    name: hotels
+  server:
+    port: 8080
+  datasource:
+    url: jdbc:oracle:thin:@vsdb_high?TNS_ADMIN=${HOME}/Wallet_vsdb
+    username: <username>
+    password: <password>
+  jpa:
+    database: oracle
+    hibernate:
+      naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      show-sql: true
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.Oracle12cDialect
+server:
+  servlet:
+    context-path: /vs-hotels/api
+logging:
+  level:
+    com:
+      vs:
+        hotel: DEBUG
+oci:
+  tenant:
+    config: oci
+    region: 
+    adb-username-ocid: 
+    adb-password-ocid: 
+    stream-ocid:
+    message-endpoint:
+    topic-ocid:
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  application:
+    name: hotels
+  server:
+    port: 8080
+  datasource:
+    url: jdbc:oracle:thin:@vsdb_high?TNS_ADMIN=/Wallet_vsdb
+    username: <username>
+    password: <password>
+  jpa:
+    database: oracle
+    hibernate:
+      naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+      show-sql: true
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.Oracle12cDialect
+server:
+  servlet:
+    context-path: /vs-hotels/api
+logging:
+  level:
+    com:
+      vs:
+        hotel: DEBUG
+oci:
+  tenant:
+    config: oci
+    region: 
+    adb-username-ocid: 
+    adb-password-ocid: 
+    stream-ocid:
+    message-endpoint:
+    topic-ocid:
+

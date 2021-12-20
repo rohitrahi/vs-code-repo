@@ -1,0 +1,71 @@
+version: 0.1
+component: build
+timeoutInSeconds: 6000
+runAs: root
+shell: bash
+env:
+  vaultVariables:
+  exportedVariables:
+    - BUILD_ID
+steps:
+  - type: Command
+    name: "Export variables"
+    timeoutInSeconds: 40
+    command: |
+      export BUILD_ID=`echo ${OCI_BUILD_RUN_ID} | rev | cut -c 1-7`
+      echo "BUILD_ID: " $BUILD_ID
+    onFailure:
+      - type: Command
+        timeoutInSeconds: 40
+        command: |
+          echo "Handling Failure"
+          echo "Failure successfully handled"
+        timeoutInSeconds: 400
+        runAs: root
+
+  - type: Command
+    name: "Install JDK11 and Download Wallet"
+    timeoutInSeconds: 10000
+    command: |
+      cd ~
+      mkdir InstalledSoftwares
+      cd InstalledSoftwares
+      wget https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz
+      tar -xvf openjdk-11+28_linux-x64_bin.tar.gz
+      export JAVA_HOME=~/InstalledSoftwares/jdk-11
+      export PATH=~/InstalledSoftwares/jdk-11/bin:$PATH
+      oci os object get -ns <Namespace> -bn vs-bucket --name Wallet_vsdb.zip --file Wallet_vsdb.zip
+      unzip Wallet_vsdb.zip -d ~/Wallet_vsdb
+      echo "Wallet FIles " `ls ~/`
+
+  - type: Command
+    name: "Build Source 1"
+    timeoutInSeconds: 400
+    command: |
+      JAVA_HOME=~/InstalledSoftwares/jdk-11
+      PATH=~/InstalledSoftwares/jdk-11/bin:$PATH 
+      cd ${OCI_WORKSPACE_DIR}/booking-service/booking-service
+      mvn -Dspring.profiles.active=dev  clean package
+      cp -r ~/Wallet_vsdb target
+      echo "Target Files With Wallet " `ls ${OCI_WORKSPACE_DIR}/booking-service/booking-service/target/*.*`
+
+  - type: Command
+    timeoutInSeconds: 1200
+    name: "Build container image"
+    command: |
+      cd ${OCI_WORKSPACE_DIR}/booking-service/booking-service
+      docker build --pull --rm -t vs-booking-service .
+    onFailure:
+      - type: Command
+        command: |
+          echo "Handling Failure"
+          echo "Failure successfully handled"
+        timeoutInSeconds: 40
+        runAs: root
+
+outputArtifacts:
+  - name: output01
+    type: DOCKER_IMAGE
+    # this location tag doesn't effect the tag used to deliver the container image
+    # to the Container Registry
+    location: vs-booking-service:latest

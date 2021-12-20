@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: customer-service
+  labels:
+    app: customer-service
+spec:
+  selector:
+    matchLabels:
+      app: customer-service
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: customer-service
+    spec:
+      containers:
+      - name: customer-service
+        image: <image>
+        imagePullPolicy: Always
+        ports:
+        - name: custmr-service
+          containerPort: 8080
+          protocol: TCP
+      imagePullSecrets:
+        - name: vs-oke-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: customer-service-svc
+spec:
+  selector:
+    app: customer-service
+  ports:
+    - port: 8081
+      targetPort: 8080
+  type:  ClusterIP

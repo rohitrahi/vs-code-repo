@@ -1,0 +1,134 @@
+/*-- Create User if you want to ... in the sample application you will load into ADMIN user for simplicity 
+
+create user vs identified by CND#1User$$0;
+
+grant dwrole to vs;
+
+-- Connnect as vs user and create the tables
+*/
+
+drop table BOOKINGS cascade constraints;
+drop table ROOM_AVAILABILITY cascade constraints;
+drop table ROOMS cascade constraints;
+drop table HOTELS cascade constraints;
+drop table ROOM_TYPES cascade constraints;
+drop table CITIES cascade constraints;
+drop table COUNTRIES cascade constraints;
+
+
+-- Hotels microservice tables
+
+
+CREATE TABLE countries (
+    country_id   NUMBER NOT NULL,
+    country_name VARCHAR2(100)
+);
+
+ALTER TABLE countries ADD CONSTRAINT countries_pk PRIMARY KEY ( country_id );
+
+CREATE TABLE cities (
+    city_id    NUMBER NOT NULL,
+    city_name  VARCHAR2(100),
+    country_id NUMBER NOT NULL
+);
+
+ALTER TABLE cities ADD CONSTRAINT cities_pk PRIMARY KEY ( city_id );
+
+ALTER TABLE cities
+    ADD CONSTRAINT cities_countries_fk FOREIGN KEY ( country_id )
+        REFERENCES countries ( country_id );
+
+CREATE TABLE hotels (
+    hotel_id   NUMBER NOT NULL,
+    hotel_name VARCHAR2(100),
+    address    VARCHAR2(300),
+    city_id    NUMBER NOT NULL
+);
+
+ALTER TABLE hotels ADD CONSTRAINT hotel__pk PRIMARY KEY ( hotel_id );
+
+ALTER TABLE hotels
+    ADD CONSTRAINT hotel_sites_cities_fk FOREIGN KEY ( city_id )
+        REFERENCES cities ( city_id );
+
+CREATE TABLE room_types (
+    room_type_id    NUMBER NOT NULL,
+    room_type_name  VARCHAR2(50) NOT NULL,
+    price_per_night NUMBER NOT NULL,
+    description     VARCHAR2(100) NOT NULL
+);
+
+ALTER TABLE room_types ADD CONSTRAINT room_types_pk PRIMARY KEY ( room_type_id );
+
+CREATE TABLE rooms (
+    room_id      NUMBER NOT NULL,
+    hotel_id     NUMBER NOT NULL,
+    room_type_id NUMBER NOT NULL
+);
+
+ALTER TABLE rooms ADD CONSTRAINT rooms_pk PRIMARY KEY ( room_id );
+
+ALTER TABLE rooms
+    ADD CONSTRAINT rooms_hotel_sites_fk FOREIGN KEY ( hotel_id )
+        REFERENCES hotels ( hotel_id );
+
+ALTER TABLE rooms
+    ADD CONSTRAINT rooms_room_types_fk FOREIGN KEY ( room_type_id )
+        REFERENCES room_types ( room_type_id );
+
+
+CREATE TABLE room_availability (
+    availability_date DATE NOT NULL,
+    hotel_id          NUMBER NOT NULL,
+    room_type_id      NUMBER NOT NULL,
+    qty_available     NUMBER NOT NULL
+);
+
+ALTER TABLE room_availability ADD CONSTRAINT room_availability_ck_1 CHECK ( qty_available >= 0 );
+
+ALTER TABLE room_availability
+    ADD CONSTRAINT room_avlblty_pk PRIMARY KEY ( room_type_id,
+                                                 availability_date,
+                                                 hotel_id );
+
+ALTER TABLE room_availability
+    ADD CONSTRAINT room_avlblty_hotel_sites_fk FOREIGN KEY ( hotel_id )
+        REFERENCES hotels ( hotel_id );
+
+ALTER TABLE room_availability
+    ADD CONSTRAINT room_avlblty_room_types_fk FOREIGN KEY ( room_type_id )
+        REFERENCES room_types ( room_type_id );
+
+
+-- Booking microservice tables 
+CREATE TABLE bookings (
+    booking_id        NUMBER NOT NULL,
+    customer_id       VARCHAR2(100) NOT NULL,
+    booking_amount    NUMBER NOT NULL,
+    booking_date      DATE NOT NULL,
+    hotel_id          NUMBER,
+    hotel_name        VARCHAR2(100),
+    room_type_id      NUMBER,
+    room_type_name    VARCHAR2(50) NOT NULL,
+    check_in_date     DATE NOT NULL,
+    check_out_date    DATE NOT NULL,
+    number_of_nights  NUMBER,
+    payment_completed NUMBER NOT NULL
+);
+
+ALTER TABLE bookings ADD CONSTRAINT booking_pk PRIMARY KEY ( booking_id );
+
+
+-- Customers microservice tables - Will be created as a collection in JSON DB
+/*
+drop table CUSTOMERS cascade constraints;
+
+CREATE TABLE customers (
+    customer_id      VARCHAR2(100) NOT NULL,
+    customer_details CLOB
+);
+
+ALTER TABLE customers ADD CONSTRAINT customers_pk PRIMARY KEY ( customer_id );
+ALTER TABLE customers ADD CONSTRAINT customers_pk PRIMARY KEY ( customer_id );
+
+*/

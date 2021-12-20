@@ -1,0 +1,25 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: vision-stays-app-ing
+  annotations:
+    ingress.kubernetesio/rewrite-target: /
+spec:
+  tls:
+    - secretName: tls-secret
+  rules:
+  - http:
+      paths:
+        - path: /vs-hotels
+          backend:
+            serviceName: hotel-service-svc
+            servicePort: 8081
+        - path: /vs-customers
+          backend:
+            serviceName: customer-service-svc
+            servicePort: 8081            
+        - path: /vs-bookings
+          backend:
+            serviceName: booking-service-svc
+            servicePort: 8081            
+        
