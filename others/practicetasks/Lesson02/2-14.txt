@@ -1,0 +1,62 @@
+cd /home/opc/vs-code-repo/vs-web
+ls
+
+cd src
+
+git commit -a -m "Index.js updated with Ingress LB IP" && git push
+
+
+# Install utilities and download dependencies
+wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+
+source /home/opc/.bashrc
+
+nvm install v14.18.1 
+
+npm install --global yarn
+
+cd /home/opc/vs-code-repo/vs-web
+
+yarn install  
+
+
+# Build and deploy
+yarn run build
+
+zip vs-web-build.zip -r ./build
+
+mv vs-web-build.zip /home/opc
+
+cd
+
+
+# Replace <PublicIPofvs-webserver>
+scp -i /home/opc/vs-code-repo/others/sshkeypair/id_rsa /home/opc/vs-web-build.zip opc@<PublicIPofvs-webserver>: 
+
+
+#SSH to vs-webserver
+
+ls -ltr
+
+unzip vs-web-build.zip
+
+ls
+
+sudo rm -r /var/www/html/*;
+
+sudo cp -r build/*  /var/www/html
+
+sudo systemctl stop httpd;
+
+sudo systemctl start httpd;
+
+
+# Test web app
+Email address - john@mail.com
+Password - welcome
+
+
+
+
+
+

@@ -1,0 +1,42 @@
+cd /home/opc/vs-code-repo/hotel-service/manifest
+
+vi build-spec-hotel-service.yaml
+
+git commit -a -m "manifest-changes-in-vs-hotel-service" && git push
+
+
+#Build Pipeline name
+bp-hotel-service
+
+
+# Parameter name and value
+BUILD_ID
+
+12345
+
+
+# Build Stage name
+build-hotel-service
+
+
+# File Path
+hotel-service/manifest/build-spec-hotel-service.yaml
+
+
+# Source name
+hotel-service
+
+
+#Publish stage name
+publish-image 
+
+
+# Artifact source, replace <ImageId for Hotel Service> from AccountValues.txt
+<ImageId for Hotel Service>:${BUILD_ID}
+
+
+# Build config / result Artifact Name
+output01
+
+
+

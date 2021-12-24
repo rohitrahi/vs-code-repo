@@ -1,0 +1,11 @@
+# Credentials to login to Vision Stays web app
+Email Address – john@mail.com
+Password - welcome
+
+
+# Rate limiting rule
+
+Name – only2requestin5seconds
+
+Requests limit – 2
+Period in seconds – 5

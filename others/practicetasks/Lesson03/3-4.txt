@@ -1,0 +1,41 @@
+cd /home/opc/vs-code-repo/customer-service/manifest
+
+vi build-spec-customer-service.yaml
+
+git commit -a -m "Build-manif-changes-customer-service" && git push
+
+
+#Build Pipeline name
+bp-customer-service
+
+
+# Parameter name and value
+BUILD_ID
+
+12345
+
+
+# Build Stage name
+build-customer-service
+
+
+# File Path
+customer-service/manifest/build-spec-customer-service.yaml
+
+
+# Source name
+customer-service
+
+
+#Publish stage name
+publish-image 
+
+
+# Artifact source, replace <ImageId for CustomerService> from AccountValues.txt
+<ImageId for CustomerService>:${BUILD_ID}
+
+
+# Build config / result Artifact Name
+output01
+
+

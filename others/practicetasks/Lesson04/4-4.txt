@@ -1,0 +1,23 @@
+# Secret for DB Username
+Name – db-username
+Description – Database username of VSDB Autonomous JSON Database
+Secret Contents – admin
+
+
+# Secret for DB Password, replace <database pwd>
+Name – db-password
+Description – Password of admin user in JSON ADB
+Secret Contents – <database pwd>
+
+
+# Secret for OCIR Username, replace <namespace>/<username>
+Name – ocir-username
+Description – Tenancy Namespace / OCI User name
+Secret Contents – <namespace>/<username>
+
+
+# Secret for OCIR Password, replace <auth-token>
+Name – ocir-password
+Description – Auth Token 
+Secret Contents – <auth-token>
+

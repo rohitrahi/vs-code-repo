@@ -1,0 +1,42 @@
+vi /home/opc/vs-code-repo/booking-service/manifest
+
+vi build-spec-booking-service.yaml
+
+git commit -a -m "manifest-changes-in-booking-service" && git push
+
+
+#Build Pipeline name
+bp-booking-service
+
+
+# Parameter name and value
+BUILD_ID
+
+12345
+
+
+# Build Stage name
+build-booking-service
+
+
+# File Path
+booking-service/manifest/build-spec-booking-service.yaml
+
+
+# Source name
+booking-service
+
+
+#Publish stage name
+publish-image 
+
+
+# Artifact source, replace <ImageId for Booking Service> from AccountValues.txt
+<ImageId for Booking Service>:${BUILD_ID}
+
+
+# Build config / result Artifact Name
+output01
+
+
+

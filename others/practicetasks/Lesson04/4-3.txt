@@ -1,0 +1,3 @@
+cd /home/opc/vs-code-repo/vs-web/src
+
+git commit -a -m "Index.js updated with API GW" && git push

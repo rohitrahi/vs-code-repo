@@ -1,0 +1,17 @@
+#Artifact get-hotel-details
+get-hotel-details-func-deployment
+
+
+#Environment get-hotel-details
+env-get-hotel-details-func
+
+#DP name
+dp-get-hotel-details-func
+
+
+#Stage name
+deploy-get-hotel-details-func
+
+
+#Build Pipeline add stage
+trigger-deployment

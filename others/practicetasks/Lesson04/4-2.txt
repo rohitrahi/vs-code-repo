@@ -1,0 +1,101 @@
+#Security List
+
+Source CIDR: 0.0.0.0/0
+IP Protocol: TCP
+Destination Port Range: 443
+
+# Create Gateway - Name
+vs-api-gateway
+
+# Gateway deployment name and path prefix
+
+vs-gateway-deployment
+
+/v1
+
+
+# Route Path
+/vs-agent/hotels
+
+
+# API Url for hotels service, replace <API Gateway endpoint URL>
+<API Gateway endpoint URL>/vs-agent/hotels
+
+
+# Test, replace <API Gateway endpoint URL>
+curl -X GET <API Gateway endpoint URL>/vs-agent/hotels -d 1001 
+
+
+#Route 2 path
+/vs-agent/create-booking
+
+
+# API URL for create-booking, replace <API Gateway endpoint URL>
+<API Gateway endpoint URL>/vs-agent/create-booking
+
+
+# Test, replace <API Gateway endpoint URL>
+
+curl -X POST <API Gateway endpoint URL>/v1/vs-agent/create-booking -d '{"customerId":"john@mail.com","bookingAmount": 125.99,"bookingDate":"2021-12-19","hotelId": 1001,"hotelName": "VisionStay - NY","roomTypeId": 101,"roomTypeName": "Classic","checkInDate": "2021-12-18","checkOutDate": "2021-12-20","numberOfNights": 2,"paymentCompleted": true}'
+
+
+# ALLOWED ORIGINS , replace <publicip of vs-webserver> and <publicip ofOCI Load Balancer>
+http://<publicip of vs-webserver>
+
+http://<publicip ofOCI Load Balancer>
+
+
+# Allowed Headers
+access-control-allow-headers
+access-control-allow-origin
+content-type
+
+
+# Route 3 Path and URL , replace <ingress-controller-IP>
+/vs-customers/api/signin
+http://<ingress-controller-IP>/vs-customers/api/signin
+
+
+# Test Route 3, replace <APIDeploymentEndPoint>
+curl -d '{"id":"john@mail.com", "password":"welcome"}' -H "Content-Type: application/json" -X POST https://<APIDeploymentEndPoint>/vs-customers/api/signin  
+
+
+# Route 4 Path and URL , replace <ingress-controller-IP>
+/vs-customers/api/signup
+http://<IngressLB-IP>/vs-customers/api/signup
+
+
+# Route 5 Path and URL , replace <ingress-controller-IP>
+/vs-bookings/api/bookings
+http://<IngressLB-IP>/vs-bookings/api/bookings
+
+
+# Route 6 Path and URL , replace <ingress-controller-IP>
+/vs-bookings/api/bookings/customer/{id}
+http://<IngressLB-IP>/vs-bookings/api/bookings/customer/${request.path[id]}
+
+
+# Route 7 Path and URL , replace <ingress-controller-IP>
+/vs-hotels/api/hotels
+http://<IngressLB-IP>/vs-hotels/api/hotels
+
+
+# Route 8 Path and URL , replace <ingress-controller-IP>
+/vs-hotels/api/hotels/{id}
+http://<IngressLB-IP>/vs-hotels/api/hotels/${request.path[id]}
+
+
+# Route 9 Path and URL , replace <ingress-controller-IP>
+/vs-hotels/api/roomtypes
+http://<IngressLB-IP>/vs-hotels/api/roomtypes
+
+
+
+
+
+
+
+
+
+
+

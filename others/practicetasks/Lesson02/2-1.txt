@@ -1,0 +1,42 @@
+# It is assumed you have a tenancy with the following IAM resources
+# user named CloudNativeUser
+# group named CloudNativeGroup in which user CloudNativeUser is a member of
+# compartment named CloudNativeComp
+
+# Capture the OCIDs as given in the instructions in the guide
+
+
+# Create Dynamic Group named CloudNativeDG, repace <CompartmentOCID> with your compartment (CloudNativeComp) OCID in the statements below
+
+All {resource.type = 'devopsrepository', resource.compartment.id = '<CompartmentOCID>'}
+
+All {resource.type = 'devopsbuildpipeline', resource.compartment.id = '<CompartmentOCID>'}
+
+ALL {resource.type = 'devopsdeploypipeline', resource.compartment.id = '<CompartmentOCID>'}
+
+All {instance.compartment.id = '<CompartmentOCID>'}
+
+ALL {resource.type = 'cluster', resource.compartment.id = '<CompartmentOCID>'}
+
+ALL {resource.type = 'devopsconnection', resource.compartment.id = '<CompartmentOCID>'}
+
+ALL {resource.type = 'ApiGateway', resource.compartment.id = '<CompartmentOCID>'}
+
+
+# Policy statments in the Policy to be created in ROOT Compartment
+
+Allow dynamic-group CloudNativeDG to manage all-resources in compartment CloudNativeComp
+Allow service OKE to manage all-resources in tenancy
+Allow service FaaS to read repos in tenancy
+Allow service FaaS to use virtual-network-family in compartment CloudNativeComp
+Allow service FaaS to manage repos in compartment CloudNativeComp
+Allow dynamic-group CloudNativeDG to use log-content in tenancy
+Allow group CloudNativeGroup to inspect dynamic-groups in tenancy 
+
+
+# Policy statements in the Policy to be created in compartment
+
+Allow group CloudNativeGroup   to manage all-resources in compartment CloudNativeComp
+
+ALLOW any-user to use functions-family in compartment CloudNativeComp where ALL {request.principal.type= 'ApiGateway', request.resource.compartment.id = '<CompartmentOCID>'}
+

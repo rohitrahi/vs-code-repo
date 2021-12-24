@@ -1,0 +1,83 @@
+# Get hotel details function
+cd /home/opc/vs-code-repo/get-hotel-details/manifest
+
+vi build-spec-get-hotel-details-func.yaml
+
+vaultVariables
+
+git commit -a -m "For Vault Integration" && git push
+
+
+# Create booking Function
+cd /home/opc/vs-code-repo/create-booking-func/manifest/
+
+vi build-spec-create-booking-func.yaml
+
+vaultVariables
+
+git commit -a -m "For Vault Integration" && git push
+
+
+# Customer service
+cd /home/opc/vs-code-repo/customer-service/manifest
+
+vi build-spec-customer-service.yaml
+
+-Dspring.datasource.username=${ADB_USERNAME} -Dspring.datasource.password=${ADB_PASSWORD}  
+
+cd /home/opc/vs-code-repo/customer-service/src/main/resources/ 
+
+vi application.yml
+
+<username>
+
+<password>
+
+cd /home/opc/vs-code-repo
+
+git commit -a -m "For Vault Integration" && git push
+
+
+
+# Booking service
+cd /home/opc/vs-code-repo/booking-service/manifest
+
+vi build-spec-booking-service.yaml 
+
+-Dspring.datasource.username=${ADB_USERNAME} -Dspring.datasource.password=${ADB_PASSWORD}  
+
+cd /home/opc/vs-code-repo/booking-service/src/main/resources/ 
+
+vi application.yml
+
+<username>
+
+<password>
+
+cd /home/opc/vs-code-repo
+git commit -a -m "For Vault Integration" && git push
+
+
+
+# Hotel service
+cd /home/opc/vs-code-repo/hotel-service/manifest
+
+vi build-spec-hotel-service.yaml
+
+-Dspring.datasource.username=${ADB_USERNAME} -Dspring.datasource.password=${ADB_PASSWORD}  
+
+cd to /home/opc/vs-code-repo/hotel-service/src/main/resources/
+
+vi application.yml
+
+<username>
+
+<password>
+
+cd /home/opc/vs-code-repo
+git commit -a -m "For Vault Integration" && git push
+
+
+
+
+

@@ -1,0 +1,42 @@
+cd /home/opc/vs-code/repo/vs-web
+
+cd manifest
+
+vi build-spec-vs-web.yam
+
+
+# Artifact path
+vs-web-build-zip
+
+
+# Version
+1.0
+
+
+# Build pipeline name
+bp-vs-web
+
+
+# Stage name
+build-web-app
+
+
+#Spec file
+
+vs-web/manifest/build-spec-vs-web.yaml
+
+#Build source name
+vs-web
+
+
+# Publish Stage name
+publish-web-archive
+
+
+# Artifact name
+build-vs-web
+ 
+
+#Build config/ result Artifact Name 
+output01
+

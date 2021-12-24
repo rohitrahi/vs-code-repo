@@ -1,0 +1,58 @@
+# Navigate to customer service directory
+cd /home/opc/vs-code-rep/customer-service/src/main/resources
+
+vi application.yml
+
+
+# Build
+cd /home/opc/vs-code-repo/customer-service
+
+export JAVA_HOME=/usr/java/jdk-11.0.12
+
+mvn -Dspring.profiles.active=dev package
+
+
+# test locally
+java -jar -Dspring.profiles.active=dev target/customer-service-0.0.1-SNAPSHOT.jar
+
+curl -d '{"id":"john@mail.com", "password":"welcome", "customerName":"John"}' -H "Content-Type: application/json" -X POST http://localhost:8080/vs-customers/api/signup
+
+
+# Build Docker image
+cp -r /home/opc/Wallet_vsdb target
+
+sudo docker build -t vs-customer-service:1.0 .
+
+sudo docker images
+
+
+# Tag and push image, replace <regionkey>, <TenantID> , <vs-repo/vs-customer-service>
+sudo docker tag vs-customer-service:1.0 <regionkey>.ocir.io/<TenantID>/<vs-repo/vs-customer-service>:1.0
+
+sudo docker push <imageid>
+
+
+# Deploy
+cd manifest	
+
+vi customer-service-deployment.yaml
+
+kubectl apply -f customer-service-deployment.yaml
+
+kubectl get service
+
+kubectl get pods
+
+kubectl logs -f <pod-name>
+
+
+#Test, replace <IngressLBPublicIP>
+curl -d '{"id":"john@mail.com", "password":"welcome"}' -H "Content-Type: application/json" -X POST http://<IngressLBPublicIP>/vs-customers/api/signin  
+
+
+
+
+
+
+
+

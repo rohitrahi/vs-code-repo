@@ -1,0 +1,3 @@
+## Execute procedure
+
+execute populate_availability('p_start_date', 'p_end_date') 

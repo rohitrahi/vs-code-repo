@@ -1,0 +1,42 @@
+version: 0.1
+component: build
+timeoutInSeconds: 6000
+runAs: root
+shell: bash
+env:
+steps:
+  - type: Command
+    name: "Install zip"
+    timeoutInSeconds: 400
+    command: |
+      yum install zip
+  - type: Command
+    name: "Install NVM, Node, NPM, Yarn"
+    timeoutInSeconds: 400
+    command: |
+      wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+      source .bashrc
+      nvm install v14.18.1
+      npm install --global yarn
+  - type: Command
+    name: "Build Web Application"
+    timeoutInSeconds: 600
+    command: |
+      cd vs-web
+      echo "Version of Node - " `node -v`
+      echo "Version of npm - " `npm -v`
+      echo "Version of yarn - " `yarn -v`
+      yarn install
+      yarn run build
+      zip vs-web-build.zip -r ./build ./bin
+      mv vs-web-build.zip ${OCI_PRIMARY_SOURCE_DIR}
+outputArtifacts:
+  - name: output01
+    type: BINARY
+    location: vs-web-build.zip
+
+
+
+
+ 
+ 

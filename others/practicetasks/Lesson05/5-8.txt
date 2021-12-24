@@ -1,0 +1,17 @@
+#URL, replace <IngressLBPublicIP>
+http://<IngressLBPublicIP>/vs-hotels/api/greeting
+
+
+cd /home/opc/vs-code-repo/hotel-service
+
+vi src/main/java/com/vs/hotel/controller/HotelController.java
+
+git commit -a -m "Change in Greeting" && git push
+
+
+#URL, replace <IngressLBPublicIP>
+http://<IngressLBPublicIP>/vs-hotels/api/greeting
+
+
+
+

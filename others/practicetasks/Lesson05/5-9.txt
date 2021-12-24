@@ -1,0 +1,51 @@
+cd /home/opc/vs-code-repo/hotel-service
+
+vi src/test/java/com/vs/hotel/HotelServiceApplicationTests.java
+
+
+# Code to be replaced in the file
+
+package com.vs.hotel;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
+import static org.assertj.core.api.Assertions.assertThat;
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
+class HotelServiceApplicationTests {
+        @LocalServerPort
+        private int port;
+        @Autowired
+        private TestRestTemplate restTemplate;
+        @Test
+        public void testGreeting() throws Exception {
+                String response = this.restTemplate.getForObject("http://localhost:" + port + "/vs-hotels/api/greeting",
+                                String.class);
+                assertThat(response).contains("Hi there!!! Welcome to Vision Stays.");
+
+        }
+}
+
+
+
+
+
+# Git commit and push
+git commit -a -m "JUnit - Greeting" && git push
+
+
+# Edit controller
+cd /home/opc/vs-code-repo/hotel-service
+
+vi src/main/java/com/vs/hotel/controller/HotelController.java
+
+
+git commit -a -m "Correction in Greeting" && git push
+
+
+#URL, replace <IngressLBPublicIP>
+http://<IngressLBPublicIP>/vs-hotels/api/greeting
+
+

@@ -1,0 +1,18 @@
+URL for Image OCIDs - https://docs.oracle.com/en-us/iaas/images/image/18e08dcc-2ef7-4a7b-abd5-0b63b0e72dce/
+
+
+# Configure vs-webserver for Run Command
+vi ./101-oracle-cloud-agent-run-command 
+
+ocarun ALL=(ALL) NOPASSWD:ALL
+
+visudo -cf ./101-oracle-cloud-agent-run-command
+
+sudo cp ./101-oracle-cloud-agent-run-command /etc/sudoers.d/
+
+sudo ls /etc/sudoers.d
+
+
+
+# Autonomous JSON Database (AJD) 
+Sample Password - Welcome01##OCI

@@ -1,0 +1,3 @@
+Free Tier URL - https://www.oracle.com/cloud/free/
+
+URL for OCI Browser Console  - https://cloud.oracle.com

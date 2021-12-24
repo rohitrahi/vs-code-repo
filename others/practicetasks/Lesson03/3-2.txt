@@ -1,0 +1,23 @@
+cd /home/opc/vs-code-repo/get-hotel-details-func/manifest
+
+vi build-spec-get-hotel-details-func.yaml
+
+git commit -a -m "manifest-changes in get-hotels" && git push
+
+
+# Build Pipeline
+bp-get-hotel-details-func
+
+
+# Stage name
+build-get-hotel-details-func
+
+
+#File path
+get-hotel-details-func/manifest/build-spec-get-hotel-details-func.yaml
+
+
+# Source name
+get-hotel-details-func
+
+

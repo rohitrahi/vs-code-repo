@@ -1,0 +1,54 @@
+cd /home/opc/vs-code-repo
+
+cd /home/opc/vs-code-repo/booking-service/src/main/resources 
+
+vi application.yml
+
+
+# Build locally
+cd /home/opc/vs-code-repo/booking-service
+
+export JAVA_HOME=/usr/java/jdk-11.0.12
+
+mvn -Dspring.profiles.active=dev package
+
+
+# Test locally
+java -jar -Dspring.profiles.active=dev target/booking-service-0.0.1-SNAPSHOT.jar
+
+curl -d '{"customerId":"john@mail.com","bookingAmount": 125.99,"bookingDate":"2021-11-19","hotelId": 1001,"hotelName": "VisionStay - NY","roomTypeId": 101,"roomTypeName": "Classic","checkInDate": "2021-12-10","checkOutDate": "2021-12-12","numberOfNights": 2,"paymentCompleted": true}' -H "Content-Type: application/json" -X POST http://localhost:8080/vs-bookings/api/bookings
+
+
+#Build Docker image
+cp -r /home/opc/Wallet_vsdb target
+
+sudo docker build -t vs-booking-service:1.0 .
+
+sudo docker images
+
+
+#Tag and push image, replace <regionkey> , <TenantID> , <vs-repo/vs-booking-service>
+sudo docker tag vs-booking-service:1.0 <regionkey>.ocir.io/<TenantID>/<vs-repo/vs-booking-service>:1.0
+
+sudo docker push <imageid>
+
+
+#Deploy container
+cd /home/opc/vs-code-repo/booking-service/manifest
+
+vi booking-service-deployment.yaml
+
+kubectl apply -f booking-service-deployment.yaml
+
+kubectl get service
+
+kubectl get pods
+
+kubectl logs -f <pod-name>
+
+
+# Test, replace <IngressLBPublicIP>
+curl -d '{"customerId":"john@mail.com","bookingAmount": 125.99,"bookingDate":"2021-11-19","hotelId": 1001,"hotelName": "VisionStay - NY","roomTypeId": 101,"roomTypeName": "Classic","checkInDate": "2021-12-12","checkOutDate": "2021-12-14","numberOfNights": 2,"paymentCompleted": true}' -H "Content-Type: application/json" -X POST http://<IngressLBPublicIP>/vs-bookings/api/bookings
+
+
+

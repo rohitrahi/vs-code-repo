@@ -1,0 +1,39 @@
+cd /home/opc/vs-code-repo/customer-service/manifest
+
+cp customer-service-deployment.yaml ~/customer-service-deployment.yaml
+
+cd /home/opc/
+
+vi customer-service-deployment.yaml
+
+# Replace 1.0 with
+${BUILD_ID} 
+
+
+# Artifact customer
+customer-service-deployment
+1.0
+
+
+# DevOps artifact customer
+customer-service-deployment
+
+
+# Environment customer
+env-customer-service
+
+# Deployment pipeline customer
+dp-customer-service
+
+
+#DP Stage name
+deploy-customer-service
+
+
+#BP Stage name customer
+trigger-deployment
+
+
+#Kubectl
+kubectl get pods
+

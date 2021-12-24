@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hotel-service
+  labels:
+    app: hotel-service
+spec:
+  selector:
+    matchLabels:
+      app: hotel-service
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: hotel-service
+    spec:
+      containers:
+      - name: hotel-service
+        image: <image>
+        imagePullPolicy: Always
+        ports:
+        - name: hotel-service
+          containerPort: 8080
+          protocol: TCP
+      imagePullSecrets:
+        - name: vs-oke-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hotel-service-svc
+spec:
+  selector:
+    app: hotel-service
+  ports:
+    - port: 8081
+      targetPort: 8080
+  type:  ClusterIP

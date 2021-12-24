@@ -1,0 +1,44 @@
+## Clone Code Repository
+
+# Navigate to .ssh directory
+cd /home/opc/.ssh
+
+ls
+
+
+# Config file in .ssh directory, replace <Region-Domain> , <OCIUser@TenantID> and change the IdentityFile path if different
+vi config
+
+
+# Entries in Config file
+Host <Region-Domain>
+User <OCIUser@TenantID>
+IdentityFile /home/opc/.oci/oci_api_key.pem
+chmod 0600 config
+
+
+# configure repo
+cd /home/opc/vs-code-repo
+
+git remote -v
+
+git remote set-url origin <CLONE With SSH URL> 
+
+git remote -v
+
+git push -f origin main
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

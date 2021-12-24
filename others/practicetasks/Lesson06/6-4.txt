@@ -1,0 +1,26 @@
+#Stream name, add suffix if required
+vs-booking-stream
+
+
+#yaml change
+cd /home/opc/vs-code-repo/booking-service/src/main/resources/
+
+vi application.yml
+
+
+#Code change
+
+cd /home/opc/vs-code-repo/booking-service/src/main/java/com/vs/booking/service/  
+
+vi BookingService.java
+
+
+#line of code
+ociHelperBean.produceMessage(bookingDTO.getCustomerId(), objectMapper.writeValueAsString(bookingDTO));
+
+
+#Checkin
+cd /home/opc/vs-code-repo
+git commit -a -m "For Streaming Integration" && git push
+
+

@@ -1,0 +1,46 @@
+## Connect to vs-webserver and Install httpd and configure firewall
+
+sudo yum -y install httpd
+
+sudo firewall-cmd --permanent --add-port=80/tcp
+sudo firewall-cmd --reload
+sudo systemctl start httpd
+
+# Security List
+
+Source CIDR: 0.0.0.0/0
+IP Protocol: TCP
+Destination Port Range: 80
+
+
+##Connect to DeveloperEnvironment
+cd /home/opc/vs-code-repo/others/sshkeypair
+
+ls
+
+chmod 600 id_rsa
+
+
+# Replace <PublicIPofvs-webserver> with Public IP of vs-webserver
+ssh -i id_rsa opc@<PublicIPofvs-webserver> 
+
+scp -i id_rsa /home/opc/vs-code-repo/others/vs-web-starter.zip opc@<PublicIPofvs-webserver>: 
+
+
+# In ssh session to vs-webserver
+cd /home/opc
+
+ls
+
+unzip vs-web-starter.zip
+
+sudo cp -r vs-web/*  /var/www/html
+
+
+
+
+
+
+
+
+

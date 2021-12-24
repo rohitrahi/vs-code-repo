@@ -1,0 +1,50 @@
+# OCI CLI Configuration
+oci setup config
+
+cd .oci
+
+ls
+
+cat oci_api_key_public.pem 
+
+cat config
+
+oci iam region list
+
+#VNC Configuration for DeveloperEnvironment
+vncpasswd
+
+# Password for vnc 
+oracle
+
+#Start vncserver and configure firewall rules
+vncserver
+
+sudo firewall-cmd --permanent --add-port=5901/tcp
+sudo firewall-cmd --reload
+
+#Security List rule
+
+Source CIDR: 0.0.0.0/0
+IP Protocol: TCP
+Destination Port Range: 5901
+
+
+# Clone GitHub Repo
+https://github.com/rohitrahi/vs-code-repo
+
+cd /home/opc
+
+pwd
+
+git clone https://github.com/rohitrahi/vs-code-repo.git
+
+cd vs-code-repo
+
+
+
+
+
+
+
+

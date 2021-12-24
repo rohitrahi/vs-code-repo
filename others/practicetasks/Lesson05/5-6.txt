@@ -1,0 +1,53 @@
+cd /home/opc/vs-code-repo/vs-web
+
+ls
+
+cd manifest 
+
+vi vs-web-deployment.yaml
+
+cd ..
+
+cd bin
+
+ls
+
+vi script.sh
+
+# Artifact vs-web
+vs-web-deployment
+
+
+#Environment
+env-vs-web
+
+
+#Artifact in DevOps
+deploy-vs-web
+
+
+# Deployment pipeline
+dp-vs-web
+
+
+#Stage
+deploy-web-app
+
+
+# Build pipeline add stage
+deploy-web-app
+
+
+#Logs
+tail -f /var/log/oracle-cloud-agent/plugins/runcommand/runcommand.log
+
+
+#Credentials
+Email address - john@mail.com
+Password - welcome
+
+
+
+
+
+

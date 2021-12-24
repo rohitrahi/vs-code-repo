@@ -1,0 +1,18 @@
+# Deploy function
+cd /home/opc/vs-code-repo/create-booking-func
+
+ls
+
+vi func.yaml
+
+git commit -a -m "func.yaml in create-booking" && git push
+
+fn deploy --app vs-app
+
+
+# Replace <vs-create-booking-func> , <PublicIPofIngressLB>
+fn config function vs-app <vs-create-booking-func> BOOKING_ENDPOINT http://<PublicIPofIngressLB>/vs-bookings/api/bookings
+
+
+# Test fn replace <vs-create-booking-func>
+echo -n ' {"customerId":"john@mail.com","bookingAmount": 125.99,"bookingDate":"2021-11-19","hotelId": 1001,"hotelName": "VisionStay - NY","roomTypeId": 101,"roomTypeName": "Classic","checkInDate": "2021-12-14","checkOutDate": "2021-12-16","numberOfNights": 2,"paymentCompleted": true} ' | fn invoke vs-app <vs-create-booking-func>

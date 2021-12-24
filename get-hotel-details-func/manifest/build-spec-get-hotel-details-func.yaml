@@ -1,0 +1,48 @@
+version: 0.1
+component: build
+timeoutInSeconds: 6000
+runAs: root
+shell: bash
+env:
+  variables:
+    "OCIR_USER_NAME" : "<namespace>/<username>"
+    "OCIR_PASSWORD" : "<AuthToken>"
+steps:
+  - type: Command
+    name: "Install JDK11"
+    timeoutInSeconds: 10000
+    command: |
+      cd ~
+      mkdir InstalledSoftwares
+      cd InstalledSoftwares
+      wget https://download.java.net/openjdk/jdk11/ri/openjdk-11+28_linux-x64_bin.tar.gz
+      tar -xvf openjdk-11+28_linux-x64_bin.tar.gz
+      export JAVA_HOME=~/InstalledSoftwares/jdk-11
+      export PATH=~/InstalledSoftwares/jdk-11/bin:$PATH
+      java -version
+  - type: Command
+    name: "Install Fn CLI"
+    timeoutInSeconds: 10000
+    command: |
+      cd ~
+      curl -LSs https://raw.githubusercontent.com/fnproject/cli/master/install | sh
+  - type: Command
+    name: "Build Function"
+    timeoutInSeconds: 400
+    command: |
+      cd ${OCI_WORKSPACE_DIR}/get-hotel-details-func/get-hotel-details-func
+      fn create context vs-cloud --provider oracle
+      fn use context vs-cloud
+      fn update context oracle.compartment-id <compartment-ocid>
+      fn update context api-url https://functions.<RegionIdentifier>.oraclecloud.com
+      fn update context registry <RegionKey>.ocir.io/<Namespace>/vs-repo
+      docker login --username $OCIR_USER_NAME --password $OCIR_PASSWORD <RegionKey>.ocir.io
+      fn build
+      fn push
+    onFailure:
+      - type: Command
+        command: |
+          echo "Handling Failure"
+          echo "Failure successfully handled"
+        timeoutInSeconds: 40
+        runAs: root

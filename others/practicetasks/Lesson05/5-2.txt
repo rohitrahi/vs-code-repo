@@ -1,0 +1,39 @@
+cd /home/opc/vs-code-repo/hotel-service/manifest
+
+cp hotel-service-deployment.yaml ~/hotel-service-deployment.yaml
+
+cd /home/opc/
+
+vi hotel-service-deployment.yaml
+
+# Replace 1.0 with
+${BUILD_ID} 
+
+
+# Artifact hotel
+hotel-service-deployment
+1.0
+
+# DevOps artifact hotel
+hotel-service-deployment
+
+
+# Environment hotel
+env-hotel-service
+
+
+# Deployment pipeline hotel
+dp-hotel-service
+
+
+#DP Stage name
+deploy-hotel-service
+
+
+#BP Stage name hotel
+trigger-deployment
+
+
+#Kubectl
+kubectl get pods
+

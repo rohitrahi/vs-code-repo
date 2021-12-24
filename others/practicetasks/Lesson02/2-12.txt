@@ -1,0 +1,77 @@
+# Install docker
+sudo dnf install -y dnf-utils zip unzip
+
+sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo
+
+sudo dnf remove -y runc
+
+sudo dnf install -y docker-ce --nobest
+
+sudo systemctl enable docker.service
+
+sudo systemctl start docker.service
+
+sudo systemctl status docker.service
+
+sudo docker info
+
+sudo docker version
+
+sudo usermod -aG docker $USER
+
+
+# Install Fn cli
+curl -LSs https://raw.githubusercontent.com/fnproject/cli/master/install | sh
+
+fn version 
+
+
+#Fn Context
+cd /home/opc/vs-code-repo/get-hotel-details-func
+
+fn create context vs-cloud --provider oracle
+
+fn use context vs-cloud
+
+fn update context oracle.profile DEFAULT
+
+
+# Replace <CompartmentOCID>
+fn update context oracle.compartment-id <CompartmentOCID>
+
+
+# Replace <RegionIdentifier> - pick Region identifier from - https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm
+fn update context api-url https://functions.<RegionIdentifier>.oraclecloud.com
+
+
+# Replace <RegionKey> , <Namespace>
+fn update context registry <RegionKey>.ocir.io/<Namespace>/vs-repo
+
+
+#Replace <Namespace>/<OCIUser> , <RegionKey>
+docker login -u '<Namespace>/<OCIUser>' <RegionKey>.ocir.io
+
+
+# Deploy function
+cd /home/opc/vs-code-repo/get-hotel-details-func
+
+ls
+
+vi func.yaml
+
+
+git commit -a -m "func.yaml in get-hotels" && git push
+
+fn deploy --app vs-app
+
+
+# Replace <vs-get-hotel-details-func> , <PublicIPofIngressLB>
+fn config function vs-app <vs-get-hotel-details-func> HOTEL_ENDPOINT http://<PublicIPofIngressLB>/vs-hotels/api/hotels/ 
+
+
+# Test fn  replace <vs-get-hotel-details-func>
+
+echo -n '1001' | fn invoke vs-app <vs-get-hotel-details-func>
+
+
+

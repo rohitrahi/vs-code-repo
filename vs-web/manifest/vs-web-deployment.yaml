@@ -1,0 +1,19 @@
+version: 1.0
+component: deployment
+runAs: root
+env:
+  variables:
+    version: "v1.0"
+files:
+  # This section is to define how the files in the artifact will
+  # be put on the compute instance
+- source: /
+  destination: /tmp/vs-web
+steps:
+  # This section is to define the scripts that each step shall run on the instance after file copy.
+  - stepType: Command
+    name: Install Apache Web Server
+    command: bin/script.sh
+    runAs: root
+    timeoutInSeconds: 800
+

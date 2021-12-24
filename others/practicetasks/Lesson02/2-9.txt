@@ -1,0 +1,134 @@
+# Navigate to home directory
+cd
+
+
+# Download kubetcl
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+
+# Install kubectl
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+kubectl version --client
+
+
+# Deploy ingress-controller
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.44.0/deploy/static/provider/cloud/deploy.yaml
+
+
+# Navigate to directory
+cd /home/opc/vs-code-repo/kubernetes
+
+
+#Deploy Ingress-nginx and configure LB for Vision stays services
+kubectl apply -f ingress-nginx-controller-deployment.yaml
+
+kubectl get svc -n ingress-nginx
+
+kubectl create -f vision-stays-app-lb.yaml
+
+kubectl get ingress
+
+
+# navigate to home directory
+cd
+
+
+#download wallet, replace <namespace>, <BucketName> and <NameoftheWalletUploadedtoBucket>
+oci os object get -ns <namespace> -bn <BucketName> --name <NameoftheWalletUploadedtoBucket> --file Wallet_vsdb.zip
+
+unzip Wallet_vsdb.zip -d Wallet_vsdb
+
+
+# navigate to code repo directory
+cd /home/opc/vs-code-repo
+
+
+# navigate to hotel resources directory
+/home/opc/vs-code-rep/hotel-service/src/main/resources 
+
+vi applications.yml 
+
+
+# Install utilitites in DeveloperEnvironment and build locally
+
+mvn
+
+sudo yum install -y maven
+
+mvn
+
+cd /home/opc/vs-code-repo/hotel-service/
+
+ls /usr/java
+
+ls /usr/java/jdk-11.0.12
+
+export JAVA_HOME=/usr/java/jdk-11.0.12
+
+pwd
+
+cd /home/opc/vs-code-repo/hotel-service/
+
+mvn -Dspring.profiles.active=dev package
+
+
+#Test application locally
+java -jar -Dspring.profiles.active=dev target/hotel-service-0.0.1-SNAPSHOT.jar
+
+curl -X GET http://localhost:8080/vs-hotels/api/hotels/1001  
+
+curl -X GET http://localhost:8080/vs-hotels/api/hotels/
+
+
+# Build Container image
+cp -r /home/opc/Wallet_vsdb target
+
+sudo docker build -t vs-hotel-service:1.0 .
+
+sudo docker images
+
+
+# URL for region key - https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm
+
+
+# Replace <regionkey> in command below
+sudo docker login <regionkey>.ocir.io
+
+
+# Tag image, replace <region-key>, <TenantID> and <vs-repo/vs-hotel-service>
+sudo docker tag vs-hotel-service:1.0 <region-key>.ocir.io/<TenantID>/<vs-repo/vs-hotel-service>:1.0
+
+
+# Replace <imageid>
+sudo docker push <imageid>
+
+
+# Create secret, replace <region-key>, <tenancy-namespace>/<username> and <auth-token>
+kubectl create secret docker-registry vs-oke-secret --docker-server=<region-key>.ocir.io  --docker-username='<tenancy-namespace>/<username>' --docker-password='<auth-token>'  
+
+kubectl get secret vs-oke-secret --output=yaml
+
+
+#manifest
+cd /home/opc/vs-code-repo/hotel-service/manifest
+
+vi hotel-service-deployment.yaml 
+
+kubectl apply -f hotel-service-deployment.yaml
+
+kubectl get service
+
+kubectl get pods
+
+
+# replace <pod-name>
+kubectl logs -f <pod-name>
+
+
+# Test pod
+curl -X GET http://<IngressLBpublic-ip>/vs-hotels/api/hotels/1001
+
+
+
+

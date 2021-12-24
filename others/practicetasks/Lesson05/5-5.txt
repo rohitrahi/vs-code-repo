@@ -1,0 +1,17 @@
+#Artifact create-boooking-func
+create-booking-func-deployment
+
+
+#Environment create-boooking-func
+env-create-booking-func
+
+#DP name
+dp-create-booking-func
+
+
+#Stage name
+deploy-create-booking-func
+
+
+#Build Pipeline add stage
+trigger-deployment

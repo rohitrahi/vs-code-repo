@@ -1,0 +1,39 @@
+cd /home/opc/vs-code-repo/booking-service/manifest
+
+cp booking-service-deployment.yaml ~/booking-service-deployment.yaml
+
+cd /home/opc/
+
+vi booking-service-deployment.yaml
+
+# Replace 1.0 with
+${BUILD_ID} 
+
+
+# Artifact booking
+booking-service-deployment
+1.0
+
+# DevOps artifact booking
+booking-service-deployment
+
+
+# Environment booking
+env-booking-service
+
+
+# Deployment pipeline booking
+dp-booking-service
+
+
+#DP Stage name
+deploy-booking-service
+
+
+#BP Stage name booking
+trigger-deployment
+
+
+#Kubectl
+kubectl get pods
+

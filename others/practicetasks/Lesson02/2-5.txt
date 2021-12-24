@@ -1,0 +1,22 @@
+# Creating OCI Resources
+
+# Container Registry Repositories, add a suffix if required
+vs-repo/vs-customer-service
+vs-repo/vs-hotel-service
+vs-repo/vs-booking-service
+vs-repo/vs-create-booking-func
+vs-repo/vs-get-hotel-details-func
+vs-repo/vs-web
+
+
+#Artifact Repository, add a suffix if required
+vs-artifacts
+
+
+#DevOps Project, add a suffix if required
+vs-devops
+
+
+#Code Repository
+vs-code-repo
+

@@ -1,0 +1,21 @@
+cd /home/opc/vs-code-repo/create-booking-func/manifest
+
+vi build-spec-create-booking-func.yaml
+
+git commit -a -m "manifest changes in create-booking-fn" && git push
+
+
+# Build pipeline name
+bp-create-booking-func
+
+#Stage name
+build-create-booking-func
+
+
+# File path
+create-booking-func/manifest/build-spec-create-booking-func.yaml
+
+
+# Build source
+create-booking-func
+

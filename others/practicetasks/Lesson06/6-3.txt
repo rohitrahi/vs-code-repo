@@ -1,0 +1,21 @@
+cd /home/opc/vs-code-repo/booking-service/src/main/resources
+
+vi application.yml
+
+
+#Code change
+cd /home/opc/vs-code-repo/booking-service/src/main/java/com/vs/booking/service/  
+
+vi BookingService.java
+
+
+# Code lines to be added
+String body = String.format("Hi, \n\nA new booking is confirmed by customer %s and the booking ID is %d.", booking.getCustomerId(), booking.getBookingId());
+
+ociHelperBean.sendNotification("New booking details", body);
+
+
+#Checkin
+cd /home/opc/vs-code-repo
+
+git commit -a -m "For Notification Integration" && git push

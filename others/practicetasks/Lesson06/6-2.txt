@@ -1,0 +1,44 @@
+#Log group
+vs-application-log-group
+
+
+#Log name
+vs-application-logs
+
+
+#Agent configuration
+vs-service-logs
+
+Logs from OKE cluster vs-cluster
+
+
+#Input name
+okeservicelogs
+
+
+#File Paths
+/var/log/containers/*hotel*.log
+
+/var/log/containers/*booking*.log
+
+/var/log/containers/*customer*.log
+
+
+#Curl, replace <IngressLB-PublicIP>
+curl -X GET http://<IngressLB-PublicIP>/vs-hotels/api/hotels
+
+
+#Search
+hotel
+
+customer 
+
+booking
+
+
+#API Gateway log
+vs-gw-deploy-access-logs
+
+
+
+
