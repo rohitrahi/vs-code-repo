@@ -10,10 +10,10 @@ Description – Password of admin user in JSON ADB
 Secret Contents – <database pwd>
 
 
-# Secret for OCIR Username, replace <namespace>/<username>
+# Secret for OCIR Username, replace <RepositoryNamespace>/<username>
 Name – ocir-username
-Description – Tenancy Namespace / OCI User name
-Secret Contents – <namespace>/<username>
+Description – Repository Namespace / OCI User name
+Secret Contents – <RepositoryNamespace>/<username>
 
 
 # Secret for OCIR Password, replace <auth-token>

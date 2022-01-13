@@ -1,3 +1,5 @@
+URL for Regions documentation - https://docs.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm
+
 URL for Image OCIDs - https://docs.oracle.com/en-us/iaas/images/image/18e08dcc-2ef7-4a7b-abd5-0b63b0e72dce/
 
 

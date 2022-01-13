@@ -44,12 +44,12 @@ fn update context oracle.compartment-id <CompartmentOCID>
 fn update context api-url https://functions.<RegionIdentifier>.oraclecloud.com
 
 
-# Replace <RegionKey> , <Namespace>
-fn update context registry <RegionKey>.ocir.io/<Namespace>/vs-repo
+# Replace <RegionKey> , <RepositoryNamespace>
+fn update context registry <RegionKey>.ocir.io/<RepositoryNamespace>/vs-repo
 
 
-#Replace <Namespace>/<OCIUser> , <RegionKey>
-docker login -u '<Namespace>/<OCIUser>' <RegionKey>.ocir.io
+#Replace <RepositoryNamespace>/<OCIUser> , <RegionKey>
+docker login -u '<RepositoryNamespace>/<OCIUser>' <RegionKey>.ocir.io
 
 
 # Deploy function

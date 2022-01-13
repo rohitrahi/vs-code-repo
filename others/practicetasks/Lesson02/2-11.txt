@@ -27,8 +27,8 @@ sudo docker build -t vs-booking-service:1.0 .
 sudo docker images
 
 
-#Tag and push image, replace <regionkey> , <TenantID> , <vs-repo/vs-booking-service>
-sudo docker tag vs-booking-service:1.0 <regionkey>.ocir.io/<TenantID>/<vs-repo/vs-booking-service>:1.0
+#Tag and push image, replace <regionkey> , <RepositoryNamespace> , <vs-repo/vs-booking-service>
+sudo docker tag vs-booking-service:1.0 <regionkey>.ocir.io/<RepositoryNamespace>/<vs-repo/vs-booking-service>:1.0
 
 sudo docker push <imageid>
 

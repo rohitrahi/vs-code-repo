@@ -1,5 +1,5 @@
 # Navigate to customer service directory
-cd /home/opc/vs-code-rep/customer-service/src/main/resources
+cd /home/opc/vs-code-repo/customer-service/src/main/resources
 
 vi application.yml
 
@@ -26,8 +26,8 @@ sudo docker build -t vs-customer-service:1.0 .
 sudo docker images
 
 
-# Tag and push image, replace <regionkey>, <TenantID> , <vs-repo/vs-customer-service>
-sudo docker tag vs-customer-service:1.0 <regionkey>.ocir.io/<TenantID>/<vs-repo/vs-customer-service>:1.0
+# Tag and push image, replace <regionkey>, <RepositoryNamespace> , <vs-repo/vs-customer-service>
+sudo docker tag vs-customer-service:1.0 <regionkey>.ocir.io/<RepositoryNamespace>/<vs-repo/vs-customer-service>:1.0
 
 sudo docker push <imageid>
 

@@ -1,4 +1,4 @@
-vi /home/opc/vs-code-repo/booking-service/manifest
+cd /home/opc/vs-code-repo/booking-service/manifest
 
 vi build-spec-booking-service.yaml
 

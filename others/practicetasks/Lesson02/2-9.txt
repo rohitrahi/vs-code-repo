@@ -34,8 +34,8 @@ kubectl get ingress
 cd
 
 
-#download wallet, replace <namespace>, <BucketName> and <NameoftheWalletUploadedtoBucket>
-oci os object get -ns <namespace> -bn <BucketName> --name <NameoftheWalletUploadedtoBucket> --file Wallet_vsdb.zip
+#download wallet, replace <ObjectStoragenamespace>, <BucketName> and <NameoftheWalletUploadedtoBucket>
+oci os object get -ns <ObjectStoragenamespace> -bn <BucketName> --name <NameoftheWalletUploadedtoBucket> --file Wallet_vsdb.zip
 
 unzip Wallet_vsdb.zip -d Wallet_vsdb
 
@@ -45,7 +45,7 @@ cd /home/opc/vs-code-repo
 
 
 # navigate to hotel resources directory
-/home/opc/vs-code-rep/hotel-service/src/main/resources 
+/home/opc/vs-code-repo/hotel-service/src/main/resources 
 
 vi applications.yml 
 
@@ -97,15 +97,15 @@ sudo docker login <regionkey>.ocir.io
 
 
 # Tag image, replace <region-key>, <TenantID> and <vs-repo/vs-hotel-service>
-sudo docker tag vs-hotel-service:1.0 <region-key>.ocir.io/<TenantID>/<vs-repo/vs-hotel-service>:1.0
+sudo docker tag vs-hotel-service:1.0 <region-key>.ocir.io/<RepositoryNamespace>/<vs-repo/vs-hotel-service>:1.0
 
 
 # Replace <imageid>
 sudo docker push <imageid>
 
 
-# Create secret, replace <region-key>, <tenancy-namespace>/<username> and <auth-token>
-kubectl create secret docker-registry vs-oke-secret --docker-server=<region-key>.ocir.io  --docker-username='<tenancy-namespace>/<username>' --docker-password='<auth-token>'  
+# Create secret, replace <region-key>, <RepositoryNamespace>/<username> and <auth-token>
+kubectl create secret docker-registry vs-oke-secret --docker-server=<region-key>.ocir.io  --docker-username='<RepositoryNamespace>/<username>' --docker-password='<auth-token>'  
 
 kubectl get secret vs-oke-secret --output=yaml
 

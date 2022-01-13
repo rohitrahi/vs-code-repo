@@ -1,8 +1,8 @@
-cd /home/opc/vs-code/repo/vs-web
+cd /home/opc/vs-code-repo/vs-web
 
 cd manifest
 
-vi build-spec-vs-web.yam
+vi build-spec-vs-web.yaml
 
 
 # Artifact path
