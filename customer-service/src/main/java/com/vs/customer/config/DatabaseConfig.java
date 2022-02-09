@@ -35,6 +35,18 @@ public class DatabaseConfig {
     @Value("${spring.datasource.password}")
     private String password;
 
+    public String getDbUrl() {
+        return dbUrl;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
 
     @Bean
     OracleRDBMSClient oracleRDBMSClient() {
@@ -63,10 +75,12 @@ public class DatabaseConfig {
         }
 
 
+        // This connection is created only for testing connectivity
         Connection connection = DriverManager.getConnection(dbUrl, userName, password);
         Properties props = new Properties();
         props.put("oracle.soda.sharedMetadataCache", "true");
         OracleDatabase oracleDatabase = new OracleRDBMSClient(props).getDatabase(connection);
+        connection.close();
         return oracleDatabase;
     }
 
