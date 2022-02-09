@@ -9,6 +9,11 @@ import oracle.soda.rdbms.OracleRDBMSClient;
 import oracle.soda.rdbms.OracleRDBMSMetadataBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import com.vs.customer.config.DatabaseConfig;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
 
 @Repository
 public class CustomerSodaRepository {
@@ -18,9 +23,19 @@ public class CustomerSodaRepository {
     @Autowired
     OracleDatabase database;
 
+    @Autowired
+    DatabaseConfig dbConfig;
+
+    private Connection connection;
+
     private static String collectionName = "CUSTOMERS";
 
-    private OracleCollection getCollection() throws OracleException {
+    private OracleCollection getCollection() throws OracleException, SQLException {
+        connection = DriverManager.getConnection(dbConfig.getDbUrl(), dbConfig.getUserName(), dbConfig.getPassword());
+        Properties props = new Properties();
+        props.put("oracle.soda.sharedMetadataCache", "true");
+        database = new OracleRDBMSClient(props).getDatabase(connection);
+
         OracleCollection col = database.openCollection(collectionName);
         if (col == null) {
             OracleRDBMSMetadataBuilder builder = client.createMetadataBuilder();
@@ -29,6 +44,12 @@ public class CustomerSodaRepository {
             col = database.openCollection(collectionName);
         }
         return col;
+    }
+
+    private void closeConnection() throws SQLException {
+        if(connection != null) {
+            connection.close();
+        }
     }
 
     public CustomersDTO findAll() throws Throwable {
@@ -42,6 +63,7 @@ public class CustomerSodaRepository {
             retVal.addCustomer(customer);
         }
         c.close();
+        closeConnection();
         return retVal;
     }
 
@@ -54,6 +76,7 @@ public class CustomerSodaRepository {
         } else {
             throw new CustomerNotFoundException("Customer with Id '"+ id +"' Not Found");
         }
+        closeConnection();
         return customer;
     }
 
@@ -61,6 +84,7 @@ public class CustomerSodaRepository {
         OracleCollection col = getCollection();
         OracleDocument document = database.createDocumentFrom(customer.getId(), new ObjectMapper().writeValueAsString(customer));
         col.insert(document);
+        closeConnection();
         return customer;
     }
 
@@ -68,13 +92,15 @@ public class CustomerSodaRepository {
         OracleCollection col = getCollection();
         OracleDocument document = database.createDocumentFrom(customer.getId(), new ObjectMapper().writeValueAsString(customer));
         col.save(document);
+        closeConnection();
         return customer;
     }
 
     public int delete(String id) throws Throwable {
         OracleCollection col = getCollection();
-        return col.find().key(id).remove();
+        int retVal = col.find().key(id).remove();
+        closeConnection();
+        return retVal;
     }
-
 
 }
