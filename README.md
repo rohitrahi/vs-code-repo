@@ -60,3 +60,9 @@ Initially, the app is built and deployed manually. In later practices, build, te
 Finally, the application integrates with OCI Observability services such as **Monitoring, Logging, Notifications and Streaming** to monitor the CI/CD pipelines, view logs and get an email notification when booking occurs.
 
 This, in a nutshell, is what you'll be building in this workshop.
+
+## Workshop Guide
+
+The workshop guide is available at [Developing Cloud Native Applications on Oracle Cloud Infrastructure](https://mylearn.oracle.com/course/developing-cloud-native-applications-on-oci-workshop/35644/102393).
+
+
