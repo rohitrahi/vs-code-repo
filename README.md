@@ -25,10 +25,12 @@ Similar to how a migration like this might happen in real world, the app develop
 
 </ol>
 
+## Reference Architecture 
+
 The final reference architecture for the application and some key components are described below.
 
+![Reference Architecture](https://github.com/rohitrahi/vs-code-repo/blob/main/images/architecture.jpg)
 
-## Reference Architecture 
 
 Initially, the static application is migrated and deployed to OCI VMs and put behind a load balancer. This setup ensures that the current static web app is highly available. **OCI Resource Manager** is used to automate infrastructure creation. Next, the application is changed to leverage a microservices-based architecture pattern.         
 
