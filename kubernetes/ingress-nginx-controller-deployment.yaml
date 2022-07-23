@@ -1,20 +1,34 @@
-kind: Service
-apiVersion: v1
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: ingress-nginx
-  namespace: ingress-nginx
-  labels:
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+  annotations:
+    nginx.ingress.kubernetes.io/app-root: /app1
+  name: approot
+  namespace: default
 spec:
-  type: LoadBalancer
-  selector:
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
-  ports:
-    - name: http
-      port: 80
-      targetPort: http
-    - name: https
-      port: 443
-      targetPort: https
+  ingressClassName: nginx
+  rules:
+  - host: approot.bar.com
+    http:
+      paths:
+      - path: /vs-hotels
+        pathType: Prefix
+        backend:
+          service:
+            name: hotel-service-svc
+            port:
+              number: 8080
+      - path: /vs-customers
+        pathType: Prefix
+        backend:
+          service:
+            name: customer-service-svc
+            port:
+              number: 8080
+      - path: /vs-bookings
+        pathType: Prefix
+        backend:
+          service:
+            name: booking-service-svc
+            port:
+              number: 8080

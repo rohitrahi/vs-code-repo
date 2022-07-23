@@ -1,25 +1,35 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: vision-stays-app-ing
   annotations:
-    ingress.kubernetesio/rewrite-target: /
+    nginx.ingress.kubernetes.io/app-root: /app1
+  name: approot
+  namespace: 
 spec:
-  tls:
-    - secretName: tls-secret
+  ingressClassName: nginx
   rules:
-  - http:
+  - host: approot.bar.com
+    http:
       paths:
-        - path: /vs-hotels
-          backend:
-            serviceName: hotel-service-svc
-            servicePort: 8081
-        - path: /vs-customers
-          backend:
-            serviceName: customer-service-svc
-            servicePort: 8081            
-        - path: /vs-bookings
-          backend:
-            serviceName: booking-service-svc
-            servicePort: 8081            
-        
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: hotel-service-svc
+            port: 
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: customer-service-svc
+            port: 
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: booking-service-svc
+            port: 
+              number: 80
+      

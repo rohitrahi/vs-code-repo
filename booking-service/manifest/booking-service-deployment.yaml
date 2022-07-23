@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: booking-service
-        image: <image>
+        image: lhr.ocir.io/lrvoxmufvusf/vs-repo/vs-booking-service:1.0
         imagePullPolicy: Always
         ports:
         - name: booking-service

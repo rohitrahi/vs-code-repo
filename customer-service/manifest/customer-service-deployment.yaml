@@ -16,11 +16,10 @@ spec:
     spec:
       containers:
       - name: customer-service
-        image: <image>
+        image: lhr.ocir.io/lrvoxmufvusf/vs-repo/vs-customer-service:1.0
         imagePullPolicy: Always
         ports:
-        - name: custmr-service
-          containerPort: 8080
+        - containerPort: 8080
           protocol: TCP
       imagePullSecrets:
         - name: vs-oke-secret

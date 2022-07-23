@@ -7,9 +7,9 @@ spring:
   server:
     port: 8080
   datasource:
-    url: jdbc:oracle:thin:@vsdb_high?TNS_ADMIN=${HOME}/Wallet_vsdb
-    username: <username>
-    password: <password>
+    url: jdbc:oracle:thin:@kstdb_tp?TNS_ADMIN=${HOME}/Wallet_vsdb
+    username: ADMIN
+    password: 50Sherlock**
   jpa:
     database: oracle
     hibernate:
@@ -48,9 +48,9 @@ spring:
   server:
     port: 8080
   datasource:
-    url: jdbc:oracle:thin:@vsdb_high?TNS_ADMIN=/Wallet_vsdb
-    username: <username>
-    password: <password>
+    url: jdbc:oracle:thin:@kstdb_tp?TNS_ADMIN=/Wallet_vsdb
+    username: ADMIN
+    password: 50Sherlock**
   jpa:
     database: oracle
     hibernate:

@@ -16,19 +16,19 @@
 	<properties>
 		<java.version>11</java.version>
 		<jersey.version>2.34</jersey.version>
+		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
 	</properties>
-        <dependencyManagement>
-                <dependencies>
-                        <dependency>
-                                <groupId>com.oracle.oci.sdk</groupId>
-                                <artifactId>oci-java-sdk-bom</artifactId>
-                                <version>2.11.0</version>
-                                <type>pom</type>
-                                <scope>import</scope>
-                        </dependency>
-                </dependencies>
-        </dependencyManagement>
-	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.oracle.oci.sdk</groupId>
+				<artifactId>oci-java-sdk</artifactId>
+				<version>2.11.0</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -39,10 +39,18 @@
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.oracle.database.jdbc</groupId>
-			<artifactId>ojdbc8-production</artifactId>
-			<version>19.7.0.0</version>
-			<type>pom</type>
+			<groupId>com.oracle.ojdbc</groupId>
+				<artifactId>ojdbc8</artifactId>
+                        	<exclusions>
+                                	<exclusion>
+                                        	<groupId>com.oracle.ojdbc</groupId>
+                                        	<artifactId>simplefan</artifactId>
+                                	</exclusion>
+                                <exclusion>
+                                        <groupId>com.oracle.ojdbc</groupId>
+                                        <artifactId>ons</artifactId>
+                                </exclusion>
+                        </exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
@@ -64,9 +72,6 @@
 			<artifactId>spring-security-web</artifactId>
 			<version>5.5.3</version>
 		</dependency>
-
-
-
 		<dependency>
 			<groupId>org.glassfish.jersey.core</groupId>
 			<artifactId>jersey-client</artifactId>
@@ -82,58 +87,74 @@
 			<artifactId>jersey-media-json-jackson</artifactId>
 			<version>${jersey.version}</version>
 		</dependency>
-
                 <dependency>
                         <groupId>com.oracle.oci.sdk</groupId>
-                        <artifactId>oci-java-sdk-core</artifactId>
+			<artifactId>oci-java-sdk-core</artifactId>
+			<version>2.11.0</version>
                 </dependency>
                 <dependency>
                         <groupId>com.oracle.oci.sdk</groupId>
-                        <artifactId>oci-java-sdk-identity</artifactId>
+			<artifactId>oci-java-sdk-identity</artifactId>
+			<version>2.11.0</version>
                 </dependency>
 		<dependency>
 			<groupId>com.oracle.oci.sdk</groupId>
 			<artifactId>oci-java-sdk-secrets</artifactId>
+			<version>2.11.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.oracle.oci.sdk</groupId>
 			<artifactId>oci-java-sdk-vault</artifactId>
+			<version>2.11.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.oracle.oci.sdk</groupId>
 			<artifactId>oci-java-sdk-common</artifactId>
+			<version>2.11.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.oracle.oci.sdk</groupId>
 			<artifactId>oci-java-sdk-streaming</artifactId>
+			<version>2.11.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.oracle.oci.sdk</groupId>
 			<artifactId>oci-java-sdk-ons</artifactId>
+			<version>2.11.0</version>
 		</dependency>
-
-
-
-
-
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.2.1.Final</version>
+		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${project.parent.version}</version>
 				<configuration>
-					<excludes>
+					<exclude>
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
-					</excludes>
+					</exclude>	
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 
 </project>
+
+
+
+
+
+
+
+
+
+
 
