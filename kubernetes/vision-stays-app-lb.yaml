@@ -4,6 +4,7 @@ metadata:
   name: vision-stays-app-ing
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    kubernetes.io/ingress.class: "nginx"
 spec:
   tls:
   - secretName: tls-secret
@@ -11,21 +12,21 @@ spec:
   - http:
       paths:
       - path: /vs-hotels-dm
-        pathType: ImplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: hotel-service-svc
             port: 
               number: 8081
       - path: /vs-customers
-        pathType: ImplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: customer-service-svc
             port: 
               number: 8081            
       - path: /vs-bookings
-        pathType: ImplementationSpecific
+        pathType: Prefix
         backend:
           service:
             name: booking-service-svc
