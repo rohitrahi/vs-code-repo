@@ -5,8 +5,8 @@ runAs: root
 shell: bash
 env:
   variables:
-    lrvoxmufvusf/kheopsst@outlook.com
-    5KaW5hbaEThaO9hZCNYdtmUZjNxNF5+QaLvaNA/7S24=
+    "OCIR_USER_NAME" : "lrvoxmufvusf/kheopsst@outlook.com"
+    "OCIR_PASSWORD" : "z8emZ]A<BI1hwIOU})AG"
 steps:
   - type: Command
     name: "Install JDK11"
