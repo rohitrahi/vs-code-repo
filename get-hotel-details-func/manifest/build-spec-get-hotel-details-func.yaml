@@ -5,7 +5,7 @@ runAs: root
 shell: bash
 env:
   variables:
-    "OCIR_USER_NAME" : "lrvoxmufvusf/kheopsst@outlook.com"
+    "OCIR_USER_NAME" : "lrvoxmufvusf/oracleidentitycloudservice/kheopsst@outlook.com"
     "OCIR_PASSWORD" : "g+.Tp[4]lUe:ZZ18RhP6"
 steps:
   - type: Command
