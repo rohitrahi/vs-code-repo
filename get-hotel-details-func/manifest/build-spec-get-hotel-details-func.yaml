@@ -6,7 +6,7 @@ shell: bash
 env:
   variables:
     "OCIR_USER_NAME" : "lrvoxmufvusf/kheopsst@outlook.com"
-    "OCIR_PASSWORD" : "5UC1FUXG0[jaU>0)qWpJ"
+    "OCIR_PASSWORD" : "g+.Tp[4]lUe:ZZ18RhP6"
 steps:
   - type: Command
     name: "Install JDK11"
@@ -35,7 +35,7 @@ steps:
       fn use context vs-cloud
       fn update context oracle.compartment-id ocid1.compartment.oc1..aaaaaaaadeuwpgurhlhm5pgv4apvypquf64tfje3tbeyzwtryfuj5rs4psbq
       fn update context api-url https://functions.uk-london-1.oraclecloud.com
-      fn update context registry lhr.ocir.io/lrvoxmufvusf/vs-repo/vs-get-hotel-details-func:0.0.3
+      fn update context registry lhr.ocir.io/lrvoxmufvusf/vs-repo
       docker login --username $OCIR_USER_NAME --password $OCIR_PASSWORD lhr.ocir.io
       fn build
       fn push
