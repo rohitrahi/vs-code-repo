@@ -53,7 +53,7 @@ steps:
     timeoutInSeconds: 1200
     name: "Build container image"
     command: |
-      cd ${OCI_WORKSPACE_DIR}/customer-service/customer-service
+      cd ${OCI_WORKSPACE_DIR}/vs-code-repo/customer-service
       docker build --pull --rm -t vs-customer-service .
     onFailure:
       - type: Command
