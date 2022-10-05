@@ -44,16 +44,16 @@ steps:
     command: |
       JAVA_HOME=~/InstalledSoftwares/jdk-11
       PATH=~/InstalledSoftwares/jdk-11/bin:$PATH 
-      cd ${OCI_WORKSPACE_DIR}/vs-code-repo/customer-service
-      mvn -Dspring.profiles.active=dev ${OCI_WORKSPACE_DIR}/vs-code-repo/customer-service/pom.xml clean package
+      cd $HOME/vs-code-repo/customer-service
+      mvn -Dspring.profiles.active=dev $HOME/vs-code-repo/customer-service/pom.xml clean package
       cp -r ~/Wallet_vsdb target
-      echo "Target Files With Wallet " `ls ${OCI_WORKSPACE_DIR}/vs-code-repo/customer-service/customer-service/target/*.*`
+      echo "Target Files With Wallet " `ls $HOME/vs-code-repo/customer-service/customer-service/target/*.*`
       
   - type: Command
     timeoutInSeconds: 1200
     name: "Build container image"
     command: |
-      cd ${OCI_WORKSPACE_DIR}/vs-code-repo/customer-service
+      cd $HOME/vs-code-repo/customer-service
       docker build --pull --rm -t vs-customer-service .
     onFailure:
       - type: Command
