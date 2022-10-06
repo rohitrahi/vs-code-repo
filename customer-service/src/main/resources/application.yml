@@ -21,7 +21,7 @@ spring:
         dialect: org.hibernate.dialect.Oracle12cDialect
 server:
   servlet:
-    context-path: /vs-customers/api
+    context-path: /vs-code-repo/vs-customers/api
 jwt:
   secret: visionstays
   validity: 600
@@ -67,7 +67,7 @@ spring:
         dialect: org.hibernate.dialect.Oracle12cDialect
 server:
   servlet:
-    context-path: /vs-customers/api
+    context-path: /vs-code-repo/vs-customers/api
 
 logging:
   level:
