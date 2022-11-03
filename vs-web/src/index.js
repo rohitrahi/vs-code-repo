@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 
-localStorage.setItem("baseURL", "http://130.162.176.66");
+localStorage.setItem("baseURL", "http://:141.147.116.62");
 ReactDOM.render(
   <React.StrictMode>
     <App />
