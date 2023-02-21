@@ -6,8 +6,8 @@ metadata:
     app: hotel-service
 spec:
   selector:
-    matchLabels: 
-      app: hotel-service 
+    matchLabels:
+      app: hotel-service
   replicas: 3
   template:
     metadata:
@@ -20,10 +20,10 @@ spec:
         imagePullPolicy: Always
         ports:
         - name: hotel-service
-          containerPort: 8081
+          containerPort: 8080
           protocol: TCP
       imagePullSecrets:
-        - name: vs-oke-secret
+        - name: vs-oke-secret2
 ---
 apiVersion: v1
 kind: Service
@@ -33,7 +33,6 @@ spec:
   selector:
     app: hotel-service
   ports:
-    - port: 80
-      targetPort: 8081
-  type: ClusterIP
-      
+    - port: 8081
+      targetPort: 8080
+  type:  ClusterIP

@@ -5,8 +5,8 @@ runAs: root
 shell: bash
 env:
   variables:
-    "OCIR_USER_NAME" : "ocid1.vaultsecret.oc1.uk-london-1.amaaaaaawvzsg7qaz3sor3b3zbgpitldzj7aidnom445elkownuumye3n4ta"
-    "OCIR_PASSWORD" : "ocid1.vaultsecret.oc1.uk-london-1.amaaaaaawvzsg7qaiegsqjffpqeibfwjgwhltpiw6hqgvr6akmob7oygb6ja"
+    "OCIR_USER_NAME" : "kheopsst/oracleidentitycloudservice/kheopsst@outlook.com"
+    "OCIR_PASSWORD" : "g+.Tp[4]lUe:ZZ18RhP6"
 steps:
   - type: Command
     name: "Install JDK11"
