@@ -1,0 +1,5 @@
+{
+  "java.showBuildStatusOnStart.enabled": "notification",
+  "typescript.npm": "C:\\Program Files\\nodejs\\npm.cmd",
+  "githubPullRequests.ignoredPullRequestBranches": ["main"]
+}
